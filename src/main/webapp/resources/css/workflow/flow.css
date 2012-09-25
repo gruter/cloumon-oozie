@@ -1,0 +1,113 @@
+.layout_panel {
+	border:solid 1px #d4d4d4;	
+}
+
+.ui-state-highlight { background: #d0e5f5 !important; border: 1px solid #79b7e7 !important;}
+
+.ui-combobox {
+	position: relative;
+	display: inline-block;
+}
+.ui-combobox-toggle {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin-left: -1px;
+	padding: 0;
+	/* adjust styles for IE 6/7 */
+	*height: 1.7em;
+	*top: 0.1em;
+}
+.ui-combobox-input {
+	margin: 0;
+	padding: 0.3em;
+}
+
+.workflow-subtitle {
+	height:20px; 
+	line-height: 20px;
+	background-color:#85b5d9;
+	border: solid 1px #4297d7;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px; 
+	border-radius: 5px;
+	color: #2E6E9E; 
+	font-weight: bold; 
+	font-size:11px; 
+	padding:5px;
+}
+
+.layout_title {
+	font-size:13px;
+	color: #2bb5d5;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.layout_input {
+	font-size:11px;
+	margin-bottom: 10px;
+}
+
+.label_title {
+	display:inline-block; 
+	width: 80px; 
+	text-align: right; 
+	margin-right: 10px;
+}
+
+.label_value {
+	width: 400px;
+	font-weight: bold;
+}
+
+.label_title2 {
+	display:inline-block; 
+	width: 100px; 
+	text-align: right; 
+	margin-right: 10px;
+}
+
+.label_value2 {
+	width: 330px;
+	font-weight: bold;
+}
+
+.label_value3 {
+	width: 310px;
+	font-weight: bold;
+}
+
+#layout-container {
+	width:	100%;
+	height:	100%;
+}
+
+.top_menu {
+	height:20px; 
+	line-height: 20px;
+	background-color:#ffffff;
+	border: solid 1px #e9e9e9;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px; 
+	border-radius: 5px;
+	color: gray; 
+	font-weight: bold; 
+	font-size:12px; 
+	padding:5px 20px 5px 20px;
+	cursor: pointer;
+}
+
+.top_menu_selected {
+	height:20px; 
+	line-height: 20px;
+	background-color:#e9e9e9;
+	border: solid 1px gray;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px; 
+	border-radius: 5px;
+	color: #000000; 
+	font-weight: bold; 
+	font-size:12px; 
+	padding:5px 20px 5px 20px;
+	cursor: pointer;
+}

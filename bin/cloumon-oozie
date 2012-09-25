@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+# 
+# The cloumon-oozie command script
+
+bin=`dirname "$0"`
+bin=`cd "$bin"; pwd`
+
+. "${bin}"/cloumon-oozie-env.sh
+
+# if no args specified, show usage
+if [ $# = 0 ]; then
+  echo "Usage: cloumon-oozie COMMAND"
+  echo "where COMMAND is one of:"
+  echo "  webserver      run webserver"
+  exit 1
+fi
+
+# get arguments
+COMMAND=$1
+shift
+
+# some Java parameters
+if [ "$JAVA_HOME" != "" ]; then
+  #echo "run java in $JAVA_HOME"
+  JAVA_HOME=$JAVA_HOME
+fi
+  
+if [ "$JAVA_HOME" = "" ]; then
+  echo "Error: JAVA_HOME is not set."
+  exit 1
+fi
+
+JAVA=$JAVA_HOME/bin/java
+
+CLASSPATH="${CLOUMON_OOZIE_CONF_DIR}"
+CLASSPATH=${CLASSPATH}:$JAVA_HOME/lib/tools.jar
+
+# so that filenames w/ spaces are handled correctly in loops below
+IFS=
+
+for f in $CLOUMON_OOZIE_HOME/cloumon-oozie*.jar; do
+  CLASSPATH=${CLASSPATH}:$f;
+done
+
+for f in $CLOUMON_OOZIE_HOME/lib/jetty/jsp/*.jar; do
+  CLASSPATH=${CLASSPATH}:$f;
+  done
+
+# add libs to CLASSPATH
+for f in $CLOUMON_OOZIE_HOME/lib/*.jar; do
+  CLASSPATH=${CLASSPATH}:$f;
+done
+
+for f in $CLOUMON_OOZIE_HOME/lib/jetty/*.jar; do
+  CLASSPATH=${CLASSPATH}:$f;
+done
+
+# add user-specified CLASSPATH last
+if [ "$CLOUMON_OOZIE_CLASSPATH" != "" ]; then
+  CLASSPATH=${CLASSPATH}:${CLOUMON_OOZIE_CLASSPATH}
+fi
+
+# default log directory & file
+if [ "$CLOUMON_OOZIE_LOG_DIR" = "" ]; then
+  CLOUMON_OOZIE_LOG_DIR="$CLOUMON_OOZIE_HOME/logs"
+fi
+if [ "$CLOUMON_OOZIE_LOGFILE" = "" ]; then
+  CLOUMON_OOZIE_LOGFILE='cloumon-oozie.log'
+fi
+
+# remanager ordinary behaviour
+unset IFS
+
+# figure out which class to run
+if [ "$COMMAND" = "webserver" ] ; then
+  CLASS='org.cloumon.gruter.common.CloumonOozieWebServer'
+else
+  CLASS=$COMMAND
+fi
+
+CLOUMON_OOZIE_OPTS="$CLOUMON_OOZIE_OPTS -Dcloumon-oozie.log.dir=$CLOUMON_OOZIE_LOG_DIR"
+CLOUMON_OOZIE_OPTS="$CLOUMON_OOZIE_OPTS -Dcloumon-oozie.log.file=$CLOUMON_OOZIE_LOGFILE"
+CLOUMON_OOZIE_OPTS="$CLOUMON_OOZIE_OPTS -Dcloumon-oozie.home.dir=$CLOUMON_OOZIE_HOME"
+CLOUMON_OOZIE_OPTS="$CLOUMON_OOZIE_OPTS -Dcloumon-oozie.id.str=$CLOUMON_OOZIE_IDENT_STRING"
+CLOUMON_OOZIE_OPTS="$CLOUMON_OOZIE_OPTS -Dcloumon-oozie.root.logger=${CLOUMON_OOZIE_ROOT_LOGGER:-INFO,console}"
+
+# run it
+exec "$JAVA" $CLOUMON_OOZIE_OPTS -classpath "$CLASSPATH" $CLASS "$@"

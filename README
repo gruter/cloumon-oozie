@@ -1,0 +1,52 @@
+Cloumon-Oozie
+=======
+Cloumon-Oozie is an open source version of the oozie workflow designer. 
+Cloumon-Oozie is licensed under the Apache Licence, Version 2.0
+(http://www.apache.org/licenses/LICENSE-2.0.html).
+
+Cloumon is an enterprise solution for management and monitoring hadoop/hadoop-eco system(like Cloudera's hue)
+Cloumon-Oozie is a sub system of Cloumon-enterprise.  
+We are pleased to release current version of Oozie designer in Gruter's Cloumon Enterprise as an open source for communities interested in it.
+
+Images/video
+-------------------
+- workflow designer: http://www.gruter.com/download_files/cloumon-oozie-01.png
+- job management: http://www.gruter.com/download_files/cloumon-oozie-02.png
+- video: 
+
+Prerequisites
+-------------------
+JDK 1.6.x
+Hadoop 0.20.x or 1.0.x
+MySQL
+
+Installation
+-------------------
+Download https://github.com/downloads/gruter/cloumon-oozie/cloumon-oozie-0.9.tar.gz
+
+    tar xzf cloumon-oozie-0.9.tar.gz
+    cd cloumon-oozie-0.9
+	vi bin/cloumon-oozie-env.sh
+        change env variable
+    vi conf/oozie-site.xml
+        set following properties: 
+            oozie.base.url, oozie.service.CallbackService.base.url, 
+            oozie.service.JPAService.jdbc.driver, oozie.service.JPAService.jdbc.url, 
+            oozie.service.JPAService.jdbc.username, oozie.service.JPAService.jdbc.password,
+            oozie.service.WorkflowAppService.system.libpath(hdfs path)
+    vi conf/cloumon-oozie-site.xml
+        cloumon.oozie.appRootPath(hdfs path)
+    vi conf/settings.properties
+         
+
+Build
+-------------------
+webserver embedded version
+	mvn install assembly:single
+
+war version 
+	mvn install
+
+Source Code
+-------------------
+The Cloumon-Oozie source code is hosted on GitHub: https://github.com/gruter/cloumon-oozie

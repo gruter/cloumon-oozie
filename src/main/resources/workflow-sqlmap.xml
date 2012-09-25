@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="workflowSQL">
+	<typeAlias alias="oozieJob"
+		type="org.cloumon.gruter.oozie.model.OozieJob" />
+
+	<typeAlias alias="oozieJobHistory"
+		type="org.cloumon.gruter.oozie.model.OozieJobHistory" />
+
+	<resultMap class="oozieJob" id="oozieJobMap">
+		<result property="jobName"  	column="JOB_NAME" />
+		<result property="appName"  	column="APP_NAME" />
+		<result property="userName"  	column="USER_NAME" />
+		<result property="mailTo"  		column="MAIL_TO" />
+		<result property="mailOnlyFail" column="MAIL_ONLY_FAIL" />
+		<result property="scheduleInfo"	column="SCHEDULE_INFO" />	
+		<result property="jobParams"	column="JOB_PARAMS" />	
+		<result property="lastJobId"	column="LAST_JOB_ID" />	
+		<result property="lastStatus"	column="LAST_STATUS" />	
+		<result property="lastExecutionTime"	column="LAST_EXEC_TIME" />	
+		<result property="description"	column="DESCRIPTION" />	
+	</resultMap>
+	
+	<resultMap class="oozieJobHistory" id="oozieJobHistoryMap">
+		<result property="jobName"  	column="JOB_NAME" />
+		<result property="jobId"  		column="JOB_ID" />
+		<result property="execTime"		column="EXEC_TIME" />	
+	</resultMap>	
+
+	<insert id="insertOozieJob" parameterClass="oozieJob">
+		INSERT INTO T_OOZIE_JOB (JOB_NAME, APP_NAME, USER_NAME, MAIL_TO, MAIL_ONLY_FAIL, JOB_PARAMS, SCHEDULE_INFO, DESCRIPTION, LAST_JOB_ID, LAST_STATUS, LAST_EXEC_TIME) 
+		VALUES ( #jobName#, #appName#, #userName#, #mailTo#, #mailOnlyFail#, #jobParams#, #scheduleInfo#, #description#, #lastJobId#, #lastStatus#, #lastExecutionTime#)
+	</insert>
+
+	<update id="updateOozieJob" parameterClass="oozieJob">
+		UPDATE T_OOZIE_JOB
+		   SET APP_NAME = #appName#, 
+		       JOB_PARAMS = #jobParams#, 
+		       USER_NAME = #userName#, 
+		       MAIL_TO = #mailTo#, 
+		       MAIL_ONLY_FAIL = #mailOnlyFail#,
+		       SCHEDULE_INFO = #scheduleInfo#, 
+		       DESCRIPTION = #description#,
+		       LAST_JOB_ID = #lastJobId#,
+		       LAST_STATUS = #lastStatus#, 
+		       LAST_EXEC_TIME = #lastExecutionTime#
+		 WHERE JOB_NAME = #jobName# 
+	</update>
+	
+	<delete id="deleteOozieJob" parameterClass="string">
+		DELETE FROM T_OOZIE_JOB WHERE JOB_NAME = #jobName#
+	</delete>
+	
+	<select id="selectOozieJob" resultMap="oozieJobMap" parameterClass="map">
+		SELECT JOB_NAME, APP_NAME, USER_NAME, MAIL_TO, MAIL_ONLY_FAIL, JOB_PARAMS, SCHEDULE_INFO, DESCRIPTION, LAST_JOB_ID, LAST_STATUS, LAST_EXEC_TIME
+		  FROM T_OOZIE_JOB
+		<dynamic prepend="WHERE">
+			<isNotEmpty property="jobName" prepend="AND">
+		 		JOB_NAME = #jobName#			
+			</isNotEmpty>
+			<isNotEmpty property="appName" prepend="AND">
+		 		APP_NAME = #appName#			
+			</isNotEmpty>
+		</dynamic>			  
+	</select>	
+	
+	<insert id="insertOozieJobHistory" parameterClass="oozieJobHistory">
+		INSERT INTO T_OOZIE_JOB_HISTORY (JOB_NAME, JOB_ID, EXEC_TIME) VALUES (#jobName#, #jobId#, #execTime#)
+	</insert>
+	
+	<delete id="deleteOozieJobHistory" parameterClass="string">
+		DELETE FROM T_OOZIE_JOB_HISTORY WHERE JOB_NAME = #jobName#
+	</delete>
+	
+	<select id="selectOozieJobHistory" resultMap="oozieJobHistoryMap" parameterClass="map">
+		SELECT JOB_NAME, JOB_ID, EXEC_TIME FROM T_OOZIE_JOB_HISTORY 
+		<dynamic prepend="WHERE">
+			<isNotEmpty property="from" prepend="AND">
+				 JOB_NAME = #jobName#
+			</isNotEmpty>
+			<isNotEmpty property="from" prepend="AND">
+				EXEC_TIME BETWEEN #from# AND #to#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+</sqlMap>

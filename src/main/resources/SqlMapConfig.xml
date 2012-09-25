@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings classInfoCacheEnabled="true" lazyLoadingEnabled="true"
+			cacheModelsEnabled="true" enhancementEnabled="true"
+			errorTracingEnabled="true" useStatementNamespaces="true"
+			maxSessions="128" maxTransactions="32" maxRequests="512"
+			defaultStatementTimeout="100" />	
+	
+	<sqlMap resource="workflow-sqlmap.xml"/>
+</sqlMapConfig>
