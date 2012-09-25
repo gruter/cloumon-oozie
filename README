@@ -34,11 +34,20 @@ Download https://github.com/downloads/gruter/cloumon-oozie/cloumon-oozie-0.9.tar
             oozie.service.JPAService.jdbc.driver, oozie.service.JPAService.jdbc.url, 
             oozie.service.JPAService.jdbc.username, oozie.service.JPAService.jdbc.password,
             oozie.service.WorkflowAppService.system.libpath(hdfs path)
-    vi conf/cloumon-oozie-site.xml
-        cloumon.oozie.appRootPath(hdfs path)
     vi conf/settings.properties
-         
+        database connection properties
+        cloumon-oozie.pig.home.path: local pig installation path
+        cloumon-oozie.hive.home.path: local hive installation path
+        cloumon.oozie.appRootPath: hdfs path
 
+Start/Stop
+-------------------
+Start
+	bin/start-cloumon-oozie.sh
+
+Stop
+	bin/stop-cloumon-oozie.sh
+	
 Build
 -------------------
 webserver embedded version
