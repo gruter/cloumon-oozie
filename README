@@ -22,7 +22,7 @@ MySQL
 
 Installation
 -------------------
-Download https://github.com/downloads/gruter/cloumon-oozie/cloumon-oozie-0.9.tar.gz
+Download https://github.com/downloads/gruter/cloumon-oozie/cloumon-oozie-bin-0.9.tar.gz
 
     tar xzf cloumon-oozie-0.9.tar.gz
     cd cloumon-oozie-0.9
@@ -39,6 +39,9 @@ Download https://github.com/downloads/gruter/cloumon-oozie/cloumon-oozie-0.9.tar
         cloumon-oozie.pig.home.path: local pig installation path
         cloumon-oozie.hive.home.path: local hive installation path
         cloumon.oozie.appRootPath: hdfs path
+        
+     create table
+     	execute conf/table/workflow.sql
 
 Start/Stop
 -------------------
