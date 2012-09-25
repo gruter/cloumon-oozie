@@ -46,7 +46,8 @@ Download https://github.com/downloads/gruter/cloumon-oozie/cloumon-oozie-bin-0.9
 Start/Stop
 -------------------
 Start
-	bin/start-cloumon-oozie.sh
+	bin/start-cloumon-oozie.sh [port]
+	http://127.0.0.1:8090
 
 Stop
 	bin/stop-cloumon-oozie.sh
